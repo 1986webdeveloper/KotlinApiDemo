@@ -16,12 +16,30 @@ if ($header['user']=='admin' && $header['password']=='admin') {
 }*/
 
 switch ($action) {
-	case 'login' && $_SERVER['REQUEST_METHOD'] === 'POST':
-		login($_REQUEST,$con);
+	case 'login':
+         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                 login($_REQUEST,$con);
+         }else{
+                $jsonOutput['meta']['status']  = 'error';
+                $jsonOutput['meta']['code']    = '200';
+                $jsonOutput['meta']['message'] = 'Invalid Action';        
+                header('Content-type: application/json');
+                echo json_encode($jsonOutput);
+         }
+		
 	break;
 
-	case 'register' && $_SERVER['REQUEST_METHOD'] === 'POST':
-		register($_REQUEST,$con);
+	case 'register':
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                 register($_REQUEST,$con);
+         }else{
+                $jsonOutput['meta']['status']  = 'error';
+                $jsonOutput['meta']['code']    = '200';
+                $jsonOutput['meta']['message'] = 'Invalid Action';        
+                header('Content-type: application/json');
+                echo json_encode($jsonOutput);
+         }
+		
 	break;
 			
 	default:	
